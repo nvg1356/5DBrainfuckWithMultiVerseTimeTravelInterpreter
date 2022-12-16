@@ -1,0 +1,6 @@
+Passing START_L and END_L does not constitute a time step.
+
+If encountering a series of recursive rewinds, the entire series of actions
+required to traverse from the first REWIND to the completion of a non-recursive method will be considered a single time step.
+
+cannot rewind START_L and END_L
