@@ -10,7 +10,10 @@ public class Printer {
             if (expression instanceof Expr.regular) {
                 System.out.println(((Expr.regular) expression).token.type);
             } else {
-                System.out.println("LOOP");
+                System.out.println("START_LOOP");
+                Printer printer = new Printer(((Expr.loop) expression).toloop);
+                printer.print();
+                System.out.println("END_LOOP");
             }
         }
     }

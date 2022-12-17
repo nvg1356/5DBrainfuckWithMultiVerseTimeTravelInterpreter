@@ -111,7 +111,7 @@ public class Intepreter extends Thread{ //each Interpreter instance is a thread 
     }
 
     private void left() {
-        mem_pointers.replaceAll(integer -> integer + 1);
+        mem_pointers.replaceAll(integer -> integer - 1);
     }
 
     private void inc() {
