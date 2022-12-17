@@ -52,7 +52,7 @@ public class Brainfuck {
         Parser parser = new Parser(tokens);
         LinkedList<Expr> expressions = parser.parse();
         timelinegenerator generator = new timelinegenerator(expressions);
-        generator.start();
+        generator.create_thread(true);
     }
 
     static void error(String message) {

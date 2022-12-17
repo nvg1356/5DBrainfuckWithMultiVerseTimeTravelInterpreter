@@ -2,7 +2,6 @@ package brainfuck5dtt;
 
 import java.lang.reflect.Array;
 import java.util.*;
-import java.util.Scanner;
 
 import static brainfuck5dtt.TokenType.*;
 import static brainfuck5dtt.timelinegenerator.*;
@@ -49,7 +48,7 @@ public class Intepreter extends Thread{ //each Interpreter instance is a thread 
                     case INC -> inc();
                     case DEC -> dec();
                     case PRINT -> print();
-                    case GET -> get();
+                    case GET -> get(expr);
                     case REWIND -> rewind();
                     case SPAWN -> spawn();
                     case KILL -> kill_self();
@@ -123,22 +122,8 @@ public class Intepreter extends Thread{ //each Interpreter instance is a thread 
         mem_pointers.forEach((n) -> Array.set(mem_array, n, (int) Array.get(mem_array, n) - 1));
     }
 
-    private void get() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.length() == 1) {
-                try {
-                    mem_pointers.forEach((n) -> Array.set(mem_array, n, (int) input.charAt(0)));
-                    return;
-                } catch (ClassCastException e) {
-                    System.err.println("Unable to convert character to ASCII code. ");
-                }
-            }
-            else {
-                System.err.println("Input needs to be a character.");
-            }
-        }
+    private void get(Expr expr) {
+        mem_pointers.forEach((n) -> Array.set(mem_array, n, (int) ((Expr.regular) expr).token.text));
     }
 
     //

@@ -35,7 +35,7 @@ public class Scanner {
             case '<' -> addToken(LEFT, c);
             case '[' -> addToken(START_L, c);
             case ']' -> addToken(END_L, c);
-            case ',' -> addToken(GET, c);
+            case ',' -> input();
             case '.' -> addToken(PRINT, c);
             case '(' -> addToken(SPAWN, c);
             case ')' -> addToken(KILL, c);
@@ -45,6 +45,22 @@ public class Scanner {
             case '@' -> addToken(FREEZE, c);
             default -> Brainfuck.error("Unexpected character.");
         }
+    }
+
+    private void input() {
+        if (source.charAt(current + 1) == '|') {
+            if (source.charAt(current + 3) == '|') {
+                try {
+                    int input = (int) source.charAt(current + 2);
+                    addToken(GET, source.charAt(current + 2));
+                    current = current + 3;
+                    return;
+                } catch (ClassCastException e) {
+                    Brainfuck.error("Input could not be converted to ASCII code.");
+                }
+            }
+        }
+        Brainfuck.error("Wrong format for declaring input.");
     }
 
     private void addToken(TokenType type, char character) {
